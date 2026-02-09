@@ -7,11 +7,11 @@ const Main = () => {
   let name='Beautiful'
   const [q, setq] = useState(1);
   useEffect(() => {
-      // let nm=prompt("Enter your name , else I'll call you beautiful ;)")
-      // if(nm.trim()!==""){
-      //   name=nm
-      // } 
-      // alert(`Hi ${name}`)
+      let nm=prompt("Enter your name , else I'll call you beautiful ;)")
+      if(nm.trim()!==""){
+        name=nm
+      } 
+      alert(`Hi ${name}`)
     
   },[])
   
