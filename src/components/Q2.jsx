@@ -22,6 +22,7 @@ const Q2 = (props) => {
           x: e.touches[0].clientX - start.current.x,
           y: e.touches[0].clientY - start.current.y,
         });
+         
       }}
       onMouseMove={(e) => {
         if (!dragging.current) return;
@@ -30,7 +31,7 @@ const Q2 = (props) => {
           y: e.clientY - start.current.y,
         });
       }}
-      style={{ userSelect: "none" }}
+      style={{ userSelect: "none" , touchAction:"none"}}
     >
         <div className="flex flex-col absolute left-[calc(100vw/2-100vw*5/12)] w-5/6 h-5/6">
 
@@ -65,6 +66,7 @@ const Q2 = (props) => {
           };
         }}
         onTouchStart={(e) => {
+          e.stopPropagation()
           dragging.current = true;
           start.current = {
             x: e.touches[0].clientX-pos.x ,
