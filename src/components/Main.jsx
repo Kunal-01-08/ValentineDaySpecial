@@ -4,14 +4,14 @@ import Q2 from './Q2'
 import Q3 from './Q3'
 import Q4 from './Q4'
 const Main = () => {
-  let name='Beautiful'
+  const [name, setname] = useState("Beautiful")
   const [q, setq] = useState(1);
   useEffect(() => {
-      let nm=prompt("Enter your name , else I'll call you beautiful ;)")
-      if(nm.trim()!==""){
-        name=nm
-      } 
-      alert(`Hi ${name}`)
+     let nm=prompt("Enter your name , else I'll call you beautiful ;)")
+     if(nm.trim()!=="") {
+        setname(nm)
+        alert(`Hi ${nm}`)
+      }
     
   },[])
   
