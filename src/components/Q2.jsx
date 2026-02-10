@@ -11,7 +11,17 @@ const Q2 = (props) => {
       onMouseUp={() => {
         dragging.current = false;
       }}
+      onTouchEnd={() => {
+        dragging.current = false;
+      }}
       onMouseLeave={() => (dragging.current = false)}
+      onTouchMove={(e) => {
+        if (!dragging.current) return;
+        setPos({
+          x: e.clientX - start.current.x,
+          y: e.clientY - start.current.y,
+        });
+      }}
       onMouseMove={(e) => {
         if (!dragging.current) return;
         setPos({
@@ -23,10 +33,10 @@ const Q2 = (props) => {
     >
         <div className="flex flex-col absolute left-[calc(100vw/2-100vw*5/12)] w-5/6 h-5/6">
 
-      <div className="w-full h-1/4  bg-pink-200 border-white border-4 rounded-4xl p-4 flex flex-col items-center  gap-4 z-1">
+      <div className="w-full h-fit  bg-pink-200 border-white border-4 rounded-4xl p-4 flex flex-col items-center  gap-4 z-1">
         <img
           src="q2img.jpg"
-          className="w-60 h-1/2 object-cover object-center rounded-4xl"
+          className="w-60 h-25  object-cover object-center rounded-4xl"
           alt="sdfas"
           />
         <span className=" w-full text-center text-red-600 text-3xl font font-extrabold ">
@@ -47,6 +57,13 @@ const Q2 = (props) => {
       
       <div
         onMouseDown={(e) => {
+          dragging.current = true;
+          start.current = {
+            x: e.clientX-pos.x ,
+            y: e.clientY-pos.y,
+          };
+        }}
+        onTouchStart={(e) => {
           dragging.current = true;
           start.current = {
             x: e.clientX-pos.x ,
