@@ -2,19 +2,30 @@ import React, { useRef,useState} from "react";
 
 const Q2 = (props) => {
   const dragging = useRef(false);
+  const box = useRef()
    const [pos, setPos] = useState({ x: 0, y: -200 }); // use state instead of ref
   const start = useRef({ x: 0, y: 0 });
 
   return (
     <div
-      className="relative h-screen w-screen flex flex-col justify-center"
-      onMouseUp={() => {
+      className="relative h-screen w-screen flex flex-col justify-center transition-all"
+      onMouseUp={(e) => {
         dragging.current = false;
+        box.current.classList.add("transition-all")
+        setPos({
+          x:0,
+          y:-200
+        })
       }}
-      onTouchEnd={() => {
+      onTouchEnd={(e) => {
         dragging.current = false;
+        box.current.classList.add("transition-all")
+        setPos({
+          x:0,
+          y:-200
+        })
       }}
-      onTouch
+      
       onMouseLeave={() => (dragging.current = false)}
       onTouchMove={(e) => {
         if (!dragging.current) return;
@@ -22,6 +33,7 @@ const Q2 = (props) => {
           x: e.touches[0].clientX - start.current.x,
           y: e.touches[0].clientY - start.current.y,
         });
+
          
       }}
       onMouseMove={(e) => {
@@ -30,6 +42,7 @@ const Q2 = (props) => {
           x: e.clientX - start.current.x,
           y: e.clientY - start.current.y,
         });
+
       }}
       style={{ userSelect: "none" , touchAction:"none"}}
     >
@@ -60,20 +73,25 @@ const Q2 = (props) => {
       <div
         onMouseDown={(e) => {
           dragging.current = true;
+          box.current.classList.remove("transition-all")
           start.current = {
             x: e.clientX-pos.x ,
             y: e.clientY-pos.y,
           };
+          
         }}
         onTouchStart={(e) => {
           e.stopPropagation()
           dragging.current = true;
+          box.current.classList.remove("transition-all")
           start.current = {
             x: e.touches[0].clientX-pos.x ,
             y: e.touches[0].clientY-pos.y,
           };
+          
         }}
-        className="w-fit h-fit absolute cursor-grab flex flex-col items-center z-1 "
+        ref={box}
+        className="w-fit h-fit absolute cursor-grab flex flex-col items-center z-1"
         style={{ left: pos.x, top: pos.y }}
       ><img src="q2img2.jpg" className="w-60 rounded-t-4xl" alt="" />
       <span className=" flex items-baseline-last h-[calc(100vh/2)]  bg-red-500 text-white font-extrabold rounded-b-2xl p-2  ">Drag me!</span>
