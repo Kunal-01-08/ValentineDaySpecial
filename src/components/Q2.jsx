@@ -14,12 +14,13 @@ const Q2 = (props) => {
       onTouchEnd={() => {
         dragging.current = false;
       }}
+      onTouch
       onMouseLeave={() => (dragging.current = false)}
       onTouchMove={(e) => {
         if (!dragging.current) return;
         setPos({
-          x: e.clientX[0] - start.current.x,
-          y: e.clientY[0] - start.current.y,
+          x: e.touches[0].clientX - start.current.x,
+          y: e.touches[0].clientY - start.current.y,
         });
       }}
       onMouseMove={(e) => {
@@ -66,8 +67,8 @@ const Q2 = (props) => {
         onTouchStart={(e) => {
           dragging.current = true;
           start.current = {
-            x: e.clientX[0]-pos.x ,
-            y: e.clientY[0]-pos.y,
+            x: e.touches[0].clientX-pos.x ,
+            y: e.touches[0].clientY-pos.y,
           };
         }}
         className="w-fit h-fit absolute cursor-grab flex flex-col items-center z-1 "
